@@ -1,0 +1,25 @@
+{
+  "name": "first_test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test:ui" : "npx playwright test",
+    "ui-mode": "npx playwright test --ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VadzimKhomich/first_test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VadzimKhomich/first_test/issues"
+  },
+  "homepage": "https://github.com/VadzimKhomich/first_test#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.1"
+  }
+}
