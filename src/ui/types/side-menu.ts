@@ -1,0 +1,1 @@
+export type SideMenuType = "home" | "Customers" | "Products" | "Managers"
