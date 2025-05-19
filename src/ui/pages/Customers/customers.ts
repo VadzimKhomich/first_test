@@ -4,6 +4,7 @@ import { ICustomer, ICustomerInTable } from "ui/types/cusomer-types";
 import { COUNTRIES } from "ui/data/customers/countries";
 import { FilterModal } from "../modals/customers/filter-modal";
 import { DeleteCustomersModal } from "../modals/customers/delete.modal";
+import { customersSortField } from "ui/types/api.types";
 
 export class CustomerPage extends SalesPortal {
   readonly deleteCUstomerModal = new DeleteCustomersModal(this.page)
@@ -13,13 +14,14 @@ export class CustomerPage extends SalesPortal {
   readonly searchButton = this.page.locator("#search-customer")
   readonly chipButton = this.page.locator(".chip")
   readonly searchChipButton = this.page.locator('div[data-chip-customers="search"]')
+  readonly table = this.page.locator("#table-customers")
 
   
 
 
   readonly filterModal = new FilterModal(this.page)
   readonly tableRow = this.page.locator("#table-customers tbody tr");
-  readonly tableHeader = this.page.locator("#table-customers th div");
+  readonly tableHeader = this.page.locator("#table-customers th div[current]");
   readonly emailHeader = this.tableHeader.filter({ hasText: "Email" });
   readonly nameHeader = this.tableHeader.filter({ hasText: "Name" });
   readonly countryHeader = this.tableHeader.filter({ hasText: "Country" });
@@ -52,6 +54,12 @@ export class CustomerPage extends SalesPortal {
 
   async clickDeleteCustomer(customerEmail: string) {
     await this.deleteButton(customerEmail).click();
+  }
+
+  async open() {
+    await this.page.evaluate(async () => {
+      await (window as typeof window & { renderCustomersPage: () => Promise<void> }).renderCustomersPage();
+    });
   }
 
   async clickFilter() {
@@ -118,5 +126,22 @@ export class CustomerPage extends SalesPortal {
     await this.fillSearch(value)
     await this.clickSearch()
     await this.waitForOpened()
+  }
+
+  async clickTableHeader(header: customersSortField) {
+    switch (header) {
+      case "email":
+        await this.emailHeader.click();
+        break;
+      case "name":
+        await this.nameHeader.click();
+        break;
+      case "country":
+        await this.countryHeader.click();
+        break;
+      case "createdOn":
+        await this.createdOnHeader.click();
+        break;
+    }
   }
 }

@@ -1,6 +1,6 @@
-import { test as base } from "@playwright/test";
-import { Sign } from "crypto";
+import { test as base } from "../fixtures/mock.fixture";
 import { AddNewCustomerPage } from "ui/pages/Customers/add-new-customer";
+import { CustomerDetailsPage } from "ui/pages/Customers/customer.details";
 import { CustomerPage } from "ui/pages/Customers/customers";
 import { HomePage } from "ui/pages/home-page";
 import { EditCustomerPage } from "ui/pages/modals/customers/edit-customer.page";
@@ -14,7 +14,7 @@ interface ISalesPortalPages {
   signInPage: SignPage;
   editCustomerPage: EditCustomerPage;
   sideBar: SideMenuComponent;
-
+  customerDetailsPage: CustomerDetailsPage, 
 }
 
 export const test = base.extend<ISalesPortalPages>({
@@ -38,6 +38,10 @@ export const test = base.extend<ISalesPortalPages>({
   },
   sideBar: async ({ page }, use) => {
     await use(new SideMenuComponent(page));
+  },
+
+  customerDetailsPage: async ({ page }, use) => {
+    await use(new CustomerDetailsPage(page));
   },
 });
 

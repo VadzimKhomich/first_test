@@ -1,31 +1,33 @@
 import { COUNTRIES } from "ui/data/customers/countries";
-import { IResponseFields } from "./api.types";
-
+import { customersSortField, IResponseFields, sortDirection } from "./api.types";
 
 export interface ICustomer {
-    email: string,
-    name: string,
-    country: COUNTRIES;
-    city: string,
-    street: string,
-    house: number,
-    flat: number,
-    phone: string,
-    note?: string
+  email: string;
+  name: string;
+  country: COUNTRIES;
+  city: string;
+  street: string;
+  house: number;
+  flat: number;
+  phone: string;
+  notes?: string;
 }
 
-export type ICustomerInTable = Pick<ICustomer, "email" | "name" | "country">
+export type ICustomerInTable = Pick<ICustomer, "email" | "name" | "country">;
 
 export interface ICustomerFromResponse extends ICustomer {
-    _id: string,
-    createdOn: string,
+  _id: string;
+  createdOn: string;
 }
 
 export interface ICustomerResponse extends IResponseFields {
-    Customer: ICustomerFromResponse,
+  Customer: ICustomerFromResponse;
 }
 
 export interface ICUstomersResponse extends IResponseFields {
-    Customers: ICustomerFromResponse[]
+  Customers: ICustomerFromResponse[];
+  sorting: {
+    sortField: customersSortField,
+    sortOrder: sortDirection,
+  };
 }
-
